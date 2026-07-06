@@ -23,7 +23,10 @@ db.query(`
   );
 `).run();
 
-const insertTag = db.query("INSERT INTO tags (tag, content, created_at, creator, personal) VALUES ($tag, $content, $created_at, $creator, $personal);");
+const insertTag = db.query(`
+  INSERT INTO tags (tag, content, created_at, creator, personal, formatting)
+  VALUES ($tag, $content, $created_at, $creator, $personal, $formatting);
+`);
 
 function addTag(tag: Tag) {
     insertTag.run({
@@ -31,7 +34,8 @@ function addTag(tag: Tag) {
         $content: tag.content,
         $created_at: tag.created_at,
         $creator: tag.creator,
-        $personal: tag.personal ? 1 : 0
+        $personal: tag.personal ? 1 : 0,
+        $formatting: tag.formatting ?? null
     });
 }
 
@@ -43,7 +47,8 @@ function getTag(tagName: string): Tag | null {
         content: row.content,
         created_at: row.created_at,
         creator: row.creator,
-        personal: !!row.personal
+        personal: !!row.personal,
+        formatting: row.formatting
     };
 }
 
