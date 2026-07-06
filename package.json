@@ -13,7 +13,7 @@
         "@slack/bolt": "^4.7.3"
     },
     "scripts": {
-        "dev": "bun --hot src/index.ts",
+        "dev": "DEVELOPMENT=1 bun --hot src/index.ts",
         "start": "bun src/index.ts"
     }
 }
